@@ -1,0 +1,391 @@
+setcps (180/60/4) --main
+
+setcps (10/60/4)
+setcps (120/60/4)
+setcps (140/60/4)
+setcps (190/60/4)
+setcps (170/60/4)
+setcps (150/60/4)
+setcps (200/60/4)
+setcps (60/60/4)
+setcps (130/60/4)
+setcps (9999/60/4)
+
+d1 --sub
+$ stack [
+s "mybass1" # cut 1 # gain 0, --very subby no need
+s "mybass2" # cut 2 # gain 1] -- listenable sub
+
+d2 --riser
+$ s "cyberriser" # cut 3 # legato 1 --slow ahh buildup
+
+
+d3 --one shot bass
+$ s "pjedbassdrop" # cut 4 # legato 1 --whynot
+
+d4 --texture
+$ stack [
+s "candy" # cut 5 # gain 0,
+s "grainbeep" # cut 6 # gain 0,
+s "plastic" # cut 7 # gain 0,
+s "wateronly" # cut 8 # gain 0,
+s "marbles" # cut 9 # gain 0,
+s "metawestcum" # cut 10 # gain 1]
+
+d5 --foley
+$ stack [
+s "mud" # cut 11 # gain 0,
+s "glassbreak" # cut 12 # gain 0,
+s "cannonshot" # cut 13 # gain 1,
+s "bomb" # cut 14 # gain 0]
+
+d6 --ms
+$ stack [
+s "psytrance" # cut 15 # gain 0,
+s "sdsong" # cut 16 # gain 0,
+s "myambience" # cut 17 # gain 1 # room 0.8 # sz 0.9]
+
+d7 --beat
+$ stack [
+s "verbbeat" # cut 19 # gain 0 # legato 1,
+s "africandrum" # cut 20 # gain 1 # legato 0,
+s "breakwater" # cut 21 # gain 0] --not so beat
+
+d8 --voxvox
+$ stack [
+s "voxringmod" # cut 22 # gain 1,
+s "voxspam" # cut 23 # gain 0,
+s "voxspectral" # cut 24 # gain 0]
+
+d9
+$ sound "amencutup*18"
+# irand 32
+# crush 5
+# speed (5/4)
+
+panic
+
+d8 
+$ sound "rave" + speed "[3 2 3 2] [4 3 4 2]"
+# end (slow 2 (tri * 0.7))
+
+d9 -- beepboop schizo nice one fast beat idk 
+-- $ rarely (hurry 8)
+-- $ sometimes (echoWith 2 4 ((* speed 0.75).(* gain 0.9)))
+-- $ every 6 (# distort 1)
+-- $ rarely (ply "<1 3>/4")
+-- $ rarely (struct "t(28,7)")
+$ sound "[jazz,hardcore,house,ho,if,print,808,tech,industrial]*16" # n (irand 32)
+# pan rand # n (run 16)
+-- # ringf 6767
+
+-- clickclack stolen
+-- from crsrcrsrrr github hahah :P
+-- beepbeepboopboop
+d10
+$ rarely (ply "<2 4 8>")
+$ s "industrial:1*16"
+# cut 1
+# legato "[0.13|0.31]*16"
+# pan rand # n (run 16)
+
+d11 
+$ rarely (* speed (-0.5)) 
+$ (# gain "{1 0 0.8 1 0 0 1.1 0 }%16") 
+$ chop "<32>"
+$ s "breaks125:0/1" 
+# up "<0>" # room 0 # sz 0.9 # att 0 # rel 1
+
+d12 -- woah
+-- $ sometimesBy 0.05 (* speed 4)
+-- $ striate 3
+$ sound "[akuma1*8 akuma2*8 akuma3*8]/3" 
+# n (irand 32)
+|+| unit "c" |+| speed "8"
+-- # pan rand
+-- # room 4 # sz 0.9
+-- # delay 1 # delayt ("<3 5 7 9>/3"/16) # delayfb 0.8 # lock 1
+-- # up (-36)
+
+d13
+$ striate 2
+$ rarely (chop 2)
+$ foldEvery [3,4] (13.25 <~) $ slowcat [
+sound "akuma1*8" # n (irand 5),
+sound "akuma2*8" # n (irand 5),
+sound "akuma3*8" # n (irand 5),
+sound "akuma4*8" # n (irand 32)]
+|+| unit "c" |+| speed "8"
+
+d14 
+-- $ every 3 ( # octer 1 )
+-- $ every 3 (# vowel "<a e i o>/4")
+-- $ every 2 (iter 2)
+-- $ every 4 (slow 2) $ every 2 (jux (rev))
+-- $ chop 4
+-- $ sometimes (superimpose(|+ n 7))
+-- $ rarely (superimpose (0.4~>))
+$ sound "think*16" # n (irand 16)
+# gain 1.2
+-- # distort 0.5
+-- # up (-36)
+-- # lpf "{1111 222 3333 444 18000}%[<7 2 5 4 11>*4]"
+-- # ring (slow 4 $ "0 2 1")
+-- # distort 0.5
+-- # coarse 20
+-- # binshift 0.4
+-- # octer 0.9 
+-- # room 0.5 # sz 0.9
+-- # att 0.3
+|+ n ("0" + "{0 1 63 3 54 12 2 6 8}%16")
+
+
+resetCycles --1
+
+let runmod r m o = ((run r) |% m |+ o) --2
+
+d15 --3
+$ n (slow 2 $ runmod 8 5 "<0 2>/2") |+ n 1
+# s "numbers"
+# legato 1
+# accelerate 2
+# room "1.2 0.1 0 3" # sz "0.1@2 1.5@4" # lock 1
+
+
+d16 -- define runmod first
+$ slice 16 (runmod 16 "<16 _ 8 [3 1]>" 0) $ "breaks125"
+# cut 1 |+ note 5
+# gain 1.2
+
+d7 -- granualization sometimes
+-- $ jux (|+| speed "1.2")
+-- $ slow 16 $ striate 4000
+$ s "alonevox*2" # legato 1
+|+| delay "0.3" |+| delayfeedback "0.3" |+| delaytime "0.3"
+# gain 1.5
+
+
+
+d11 --creepy ah something
+$ (# scram 0.1)
+$ fast 8 $ s "bit1" # unit "c" # speed (1/16)
+# room 0.3
+# sz 1
+# ring (fast 2 $ "20 100 500")
+
+d5 --goofy kick, gabba, gabbaloud, gabbalouder
+-- $ echoWith 2 (5/16) (|+ gain 0.9)
+$ (# scram 0.2)
+$ s "gabbalouder*4"
+
+d4
+$ slow 3
+$ superimpose (rev.fast 2)
+$ every 2 (# speed 2) . fast 2
+$ echoWith 3 (7/16) (|+ n 12)
+$ s "tink(7,16)"
+# gain 1.3
+# room 0.9
+# sz 0.9
+# lpf 6767
+
+d8
+$ superimpose (# s "alphabet")
+$ s "mud*24" # n (irand 16)
+# legato rand
+# gain rand
+-- # pan rand # n (run 16)
+
+d1 
+$ echoWith 3 (7/16) (|+ n 12) $ n "0 4 7" 
+# s "glassbreak" 
+# legato rand
+# gain 1.2
+
+d2
+$ superimpose ((# speed "2*12")
+.(# squiz (slow 2 $ range 1 16 $ sine))
+.(striate "[4|2|3]")
+.(ply "[[1 1 2 4]|[1 1 2 2]]")
+.(# room "0 0.5")
+.(# sz "0.2 0.4"))
+$ fast 2
+$ s "gabba 808 909 auto battles" # gain 0.8
+
+d3
+$ every 5 (hurry 8)
+$ hurry 2
+$ echoWith 4 (11/16) (rev . (# pan (fast 4 "<1 0 0.5 0 1 0.67>")))
+$ sound "can*8 casio control circus clak diphone fire" # legato 1
+
+d3
+$ echoWith 2 (7/16) (rev . (# pan (fast 4 "<1 0 0.5 0 1 0.67>")))
+$ rarely (# vowel "a e i e e")
+$ stut 2 0.3 0.3
+-- $ (# n "<2,0>")
+$ sound "glitch*4" # legato 1
+# n (irand 16)
+# gain (fast 2 $ sine)
+
+d4
+$ mask "1 0"
+$ somecyclesBy 0.5 (# crush "16 12 8 4")
+$ n"[-2/2,-25/5,-23/4,-34/7,-67/7]"
+# s "superfm" # att 1 # rel 2 # legato 4
+# room 0.7
+# sz 0.9
+
+d11
+$ (\p -> p |+| n "<7 5 8 0 2>*<8!2 16>" # legato 1)
+$ chop 8
+$ loopAt 2
+$ s "marbles"
+# legato 1
+# gain 1.4
+# shape ("3"/10)
+# hpf 1200
+-- # speed ("10 20 30 40"/20)
+-- # accelerate ("-6 -10@7 67"/10)
+
+d12
+-- $ rarely (hurry 8)
+-- $ sometimes (echoWith 2 4 ((* speed 0.75).(* gain 0.9)))
+-- $ every 6 (# distort 1)
+-- $ rarely (ply "<1 3>/4")
+-- $ rarely (struct "t(28,7)")
+$ s "birds*4" # legato 2 # n (irand 16)
+|+| delay "0.3" |+| delayfeedback "0.3" |+| delaytime "0.3"
+
+
+d13
+-- $ every 3 ( # octer 1 )
+-- $ every 3 (# vowel "<a e i o>/4")
+-- $ every 2 (iter 2)
+-- $ every 4 (slow 2) $ every 2 (jux (rev))
+-- $ chop 4
+-- $ sometimes (superimpose(|+ n 7))
+-- $ rarely (superimpose (0.4~>))
+-- $ every 5 (hurry 8)
+-- $ hurry 2
+-- $ echoWith 4 (11/16) (rev . (# pan (fast 4 "<1 0 0.5 0 1 0.67>")))
+$ s "kurt*3" # legato 1 # n (irand 67) # gain 1.04
+-- # room (fast 5 "<0.7 0 0.3 0 0.2 0 0.9 0 0>")
+-- # sz 0.9
+-- # delay 1 # delayt ("<3 5 7 9>/3"/16) # delayfb 0.8 # lock 1
+
+d14
+$ s "breath*7" # gain 1.4 # legato 1 # n (irand 16)
+-- # distort 0.5
+-- # up (-36)
+-- # lpf "{1111 222 3333 444 18000}%[<7 2 5 4 11>*4]"
+-- # ring (slow 4 $ "0 2 1")
+-- # distort 0.5
+-- # coarse 20
+-- # binshift 0.4
+-- # octer 0.9 
+-- # room 0.5 # sz 0.9
+
+d1  
+$ n (scale "japanese" 
+"0 < 1 [~ 4]> [~ 4] [3 12 2 3 3]" |+ "{2 3 2}%16")
+# s "superfm"
+
+d2 
+$ ply "14 ~ ~ ~ 3? 2? 1?"
+$ s "battles" # n (rand)
+# speed (fast 8 rand)
+# legato (fast 8 rand)
+
+d3
+-- $ scramble 4
+-- $ sometimes (striate 2)
+$ sound "akuma1*8" # n (irand 9)
+
+
+-- clear
+all id
+
+all $ hurry 2
+
+all $ hurry 4
+
+all $ hurry 8
+
+all $ hurry 16
+
+all $ (hurry 0.3).(# room 0.3).(# sz 0.9).(sometimes (|+ n 24))
+
+all (|+ coarse "9")
+
+all $ (# djf 0.8)
+
+all $ struct "t/1.3"
+
+all $ (hurry 0.3).(ply (fast 5 "<1 10 100>")) --ahhhhhhhhh
+
+all $ (hurry 0.3).(ply 5)
+
+all $ slow "1 4 2 8 -2 4 -4 2"
+
+all $ ply (slow 6 $ range 2 32 $ sine)
+
+all $ ply "1 2 4 8 16 32 64 112 224"
+
+all $ slow 1
+
+all $ (# scram (fast 4 "<0.1 0 0.3 0 0.5 0 0.9 0>"))
+
+all $ hurry 4 .(somecycles (struct "1(7,16)"))
+
+all $ somecycles (struct "1(11,16)")
+
+all $ swingBy 0.8 8
+
+all $ (# room (fast 3 "<0 0.2 0.3 0.5 0.7 0.9>")) .(# size 0.7) .(# shape 0.2)
+
+all $ (# room (fast 3 (range (-0.2) 0.9 $ slow 8 sine))) .(# size 0.7) .(# shape 0.2)
+
+all (sometimesBy 0.3 (rev))
+
+all (sometimesBy 0.3 (# crush 4))
+
+all (often (|+| gain (range (-0.2) 0.2 $ slow 8 sine)))
+
+all (# pan rand)
+
+all (slow 0.5)
+
+all (rev)
+
+all (degradeBy 0.8)
+
+all (jux rev)
+
+all $ palindrome
+
+all (often (|+| gain (rand)))
+
+all (rarely (# speed 8))
+
+all ((# shape 0.3).(# gain 0.9))
+
+all ((# cut 1).(fast 4))
+
+all (# lpf "1000 3000 6000 2000 20000 4000 300")
+
+mute 1
+
+unsoloAll
+
+unmuteAll
+
+muteAll
+
+hush
+
+do --panic and reset everything
+panic
+hush
+unsoloAll
+unmuteAll
+all id
